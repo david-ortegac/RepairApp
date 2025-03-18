@@ -1,0 +1,33 @@
+<ion-content class="register-container">
+  <div class="background"></div> <!-- Fondo oscuro -->
+
+  <div class="register-box">
+    <h2>Register</h2>
+
+    <ion-item class="input-item">
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      <ion-input [(ngModel)]="name" type="text" placeholder="Nombres"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-item">
+      <ion-icon name="mail-outline" slot="start"></ion-icon>
+      <ion-input [(ngModel)]="email" type="email" placeholder="Correo"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-item">
+      <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+      <ion-input [(ngModel)]="password" type="password" placeholder="Contraseña"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-item">
+      <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+      <ion-input [(ngModel)]="confirmPassword" type="password" placeholder="Confirmar contraseña"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" class="submit-btn" (click)="register()">Crear cuenta</ion-button>
+
+    <ion-text class="login-text">
+      Ya tienes una cuenta? <strong (click)="goToLogin()">Iniciar sesión</strong>
+    </ion-text>
+  </div>
+</ion-content>

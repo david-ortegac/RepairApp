@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import Cliente from '../models/Cliente';
 
 
 @Injectable({
@@ -8,18 +10,24 @@ import { Observable } from 'rxjs';
 })
 export class FirebaseService {
 
-  private clientesCollection = this.firestore.collection('clientes');
+  private readonly clientesCollection = this.firestore.collection('clientes');
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private readonly firestore: AngularFirestore) {}
 
   // 📌 Agregar cliente
-  agregarCliente(cliente: any): Promise<any> {
+  agregarCliente(cliente: Cliente): Promise<any> {
     return this.clientesCollection.add(cliente);
   }
 
   // 📌 Obtener clientes
-  obtenerClientes(): Observable<any[]> {
-    return this.clientesCollection.valueChanges({ idField: 'id' });
+  obtenerClientes(): Observable<Cliente[]> {
+    return this.clientesCollection.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Cliente;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }))
+    );
   }
 
   // 📌 Actualizar cliente

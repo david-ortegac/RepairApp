@@ -1,0 +1,23 @@
+<ion-content class="login-container">
+  <div class="background"></div> <!-- Fondo oscuro -->
+
+  <div class="login-box">
+    <h2>Login</h2>
+
+    <ion-item class="input-item">
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      <ion-input [(ngModel)]="email" type="email" placeholder="Correo"></ion-input>
+    </ion-item>
+
+    <ion-item class="input-item">
+      <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+      <ion-input [(ngModel)]="password" type="password" placeholder="Contraseña"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" class="submit-btn" (click)="login()">Enviar</ion-button>
+
+    <ion-text class="register-text">
+      Tienes una cuenta? <strong (click)="register()">Registrar</strong>
+    </ion-text>
+  </div>
+</ion-content>
