@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">clientes</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-item *ngFor="let cliente of clientes">
+      <ion-label>
+        <h2>{{ cliente.nombre }}</h2>
+        <p>{{ cliente.telefono }}</p>
+      </ion-label>
+      <ion-button color="danger" (click)="eliminarCliente(cliente.id!)">Eliminar</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
