@@ -1,0 +1,7 @@
+{
+  "name": "RepairApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
