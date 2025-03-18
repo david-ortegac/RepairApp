@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import * as CryptoJS from 'crypto-js';
 import Cliente from '../models/Cliente';
 
 @Injectable({
@@ -10,7 +9,10 @@ import Cliente from '../models/Cliente';
 export class AuthService {
   private readonly clientesCollection = this.firestore.collection('clientes');
 
-  constructor(private readonly afAuth: AngularFireAuth, private firestore: AngularFirestore) { }
+  constructor(
+    private readonly afAuth: AngularFireAuth, 
+    private readonly firestore: AngularFirestore
+  ) { }
 
   // 🔹 REGISTRAR USUARIO
   async registerUser(email: string, password: string, name: string) {

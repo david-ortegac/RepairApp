@@ -1,3 +1,5 @@
+import Equipo from "./Equipo";
+
 export default interface Cliente {
     id?: string;
     nombre: string;
@@ -5,4 +7,5 @@ export default interface Cliente {
     telefono: string;
     direccion: string;
     tipo: string;
+    equipos?: Equipo[];
   }
