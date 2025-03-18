@@ -5,28 +5,21 @@ import { EquiposPage } from './pages/equipos/equipos.page';
 import { HistorialPage } from './pages/historial/historial.page';
 import { LoginPage } from './pages/login/login.page';
 import { RegisterPage } from './pages/register/register.page';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginPage },
   { path: 'register', component: RegisterPage },
-  { path: 'clientes', component: ClientesPage },
+  { path: 'clientes', component: ClientesPage, canActivate: [AuthGuard] },
   { path: 'equipos', component: EquiposPage },
   { path: 'historial', component: HistorialPage },
-  {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-  },
-  {
-    path: 'register',
-    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
-  }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }
