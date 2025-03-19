@@ -6,14 +6,15 @@ import { HistorialPage } from './pages/historial/historial.page';
 import { LoginPage } from './pages/login/login.page';
 import { RegisterPage } from './pages/register/register.page';
 import { AuthGuard } from './guards/auth.guard';
+import { ValidateLogged } from './guards/validate-logged.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: '', pathMatch: 'full' },
   { path: 'login', component: LoginPage },
   { path: 'register', component: RegisterPage },
-  { path: 'clientes', component: ClientesPage, canActivate: [AuthGuard] },
-  { path: 'equipos', component: EquiposPage },
-  { path: 'historial', component: HistorialPage },
+  { path: 'clientes', component: ClientesPage, canActivate: [AuthGuard, ValidateLogged] },
+  { path: 'equipos', component: EquiposPage, canActivate:  [ValidateLogged] },
+  { path: 'historial', component: HistorialPage, canActivate:  [ValidateLogged] },
 ];
 
 @NgModule({
