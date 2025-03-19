@@ -16,7 +16,7 @@
       @defer(on idle) {
         <ion-item *ngFor="let cliente of clientes">
           <ion-label>
-            <h2 (click)="getClienteById(cliente.id!)">{{ cliente.nombre }}</h2>
+            <h2 (click)="getEquipos(cliente.id!)">{{ cliente.nombre }}</h2>
             <p>{{ cliente.telefono }}</p>
           </ion-label>
           <ion-button color="danger" (click)="eliminarCliente(cliente.id!)">Eliminar</ion-button>

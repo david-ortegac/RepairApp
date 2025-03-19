@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import Cliente from 'src/app/models/Cliente';
-import { ClienteService } from 'src/app/services/clientes.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import Cliente from 'src/app/models/Cliente';
 import Equipo from 'src/app/models/Equipo';
+import { ClienteService } from 'src/app/services/clientes.service';
+import { EquiposService } from 'src/app/services/equipos.service';
 
 @Component({
   selector: 'app-clientes',
@@ -21,19 +22,21 @@ export class ClientesPage implements OnInit {
   cargando: boolean = true;
   equipos: Equipo[] = [];
 
-  constructor(private readonly clientesService: ClienteService) { }
+  constructor(
+    private readonly clientesService: ClienteService,
+    private readonly equiposService: EquiposService
+  ) { }
 
   ngOnInit() {
     this.getClientes();
   }
 
   eliminarCliente(id: string) {
-    this.clientesService.eliminarCliente(id);
+    this.clientesService.deleteCliente(id);
   }
 
   getClientes() {
     this.clientesService.obtenerClientes().subscribe(data => {
-      console.log(data);
       this.clientes = data;
       this.cargando = false;
     });
@@ -42,6 +45,13 @@ export class ClientesPage implements OnInit {
   getClienteById(id: string) {
     this.clientesService.getCliente(id).subscribe(res => {
       this.cliente = res;
+    });
+  }
+
+  getEquipos(clienteId: string) {
+    this.equiposService.obtenerEquipos(clienteId).subscribe(data => {
+      this.equipos = data;
+      console.log(data)
     });
   }
 

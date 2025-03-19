@@ -1,13 +1,20 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>equipos</ion-title>
+    <ion-title>Clientes</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">equipos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+
+  <!-- Lista de equipos del cliente seleccionado -->
+  <ion-list>
+    <ion-item *ngFor="let equipo of equipos">
+      <ion-label>{{ equipo.marca }} - {{ equipo.modelo }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Botón para agregar un equipo -->
+  <ion-button expand="full" (click)="agregarEquipo()">
+    Agregar Equipo
+  </ion-button>
 </ion-content>
