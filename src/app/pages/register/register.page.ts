@@ -1,14 +1,11 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonicModule, ToastController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
-  standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule],
+  standalone: false,
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
@@ -19,10 +16,10 @@ export class RegisterPage {
   confirmPassword = '';
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
+    private readonly authService: AuthService,
+    private readonly router: Router,
     private readonly toastCtrl: ToastController
-  ) {}
+  ) { }
 
   async register() {
     if (this.password !== this.confirmPassword) {
@@ -48,7 +45,7 @@ export class RegisterPage {
   async showToast(message: string, color: string = 'success') {
     const toast = await this.toastCtrl.create({
       message,
-      duration: 2000,
+      duration: 2500,
       color,
     });
     await toast.present();

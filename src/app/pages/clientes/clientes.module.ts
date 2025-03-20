@@ -1,3 +1,4 @@
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +15,8 @@ import { ClientesPage } from './clientes.page';
     FormsModule,
     IonicModule,
     ClientesPageRoutingModule,
-    ClientesPage
-  ]
+    ProgressSpinnerModule
+  ],
+  declarations: [ClientesPage]
 })
 export class ClientesPageModule {}

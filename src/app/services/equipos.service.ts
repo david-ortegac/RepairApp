@@ -28,7 +28,6 @@ export class EquiposService {
       this.firestore,
       `clientes/${clienteId}/equipos`
     );
-    console.log(equiposCollection)
     return collectionData(equiposCollection, { idField: 'id' }).pipe(
       map((data) => data as Equipo[])
     );

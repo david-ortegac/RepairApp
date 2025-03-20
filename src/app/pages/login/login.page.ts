@@ -12,12 +12,19 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
 
   email = '';
   password = '';
 
   constructor(private readonly authService: AuthService, private readonly router: Router, private readonly toastCtrl: ToastController) { }
+  ngOnInit(): void {
+    this.authService.getCurrentUser().subscribe(user => {
+      if (user) {
+        this.router.navigate(['/clientes']);
+      }
+    });
+  }
 
   async showToast(message: string, color: string = 'success') {
     const toast = await this.toastCtrl.create({

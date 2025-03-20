@@ -1,7 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { Router } from '@angular/router';
 import Cliente from 'src/app/models/Cliente';
 import Equipo from 'src/app/models/Equipo';
 import { ClienteService } from 'src/app/services/clientes.service';
@@ -9,8 +7,7 @@ import { EquiposService } from 'src/app/services/equipos.service';
 
 @Component({
   selector: 'app-clientes',
-  standalone: true,
-  imports: [CommonModule, IonicModule, ProgressSpinnerModule],
+  standalone: false,
   templateUrl: './clientes.page.html',
   styleUrls: ['./clientes.page.scss'],
 })
@@ -24,7 +21,8 @@ export class ClientesPage implements OnInit {
 
   constructor(
     private readonly clientesService: ClienteService,
-    private readonly equiposService: EquiposService
+    private readonly equiposService: EquiposService,
+    private readonly router: Router
   ) { }
 
   ngOnInit() {
@@ -51,7 +49,7 @@ export class ClientesPage implements OnInit {
   getEquipos(clienteId: string) {
     this.equiposService.obtenerEquipos(clienteId).subscribe(data => {
       this.equipos = data;
-      console.log(data)
+      this.router.navigate(['/equipos', clienteId]);
     });
   }
 

@@ -1,23 +1,23 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import Equipo from 'src/app/models/Equipo';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClienteService } from 'src/app/services/clientes.service';
 import { EquiposService } from 'src/app/services/equipos.service';
 
-
 @Component({
   selector: 'app-equipos',
-  standalone: true,
-  imports: [CommonModule, IonicModule],
+  standalone: false,
   templateUrl: './equipos.page.html',
   styleUrls: ['./equipos.page.scss'],
 })
 export class EquiposPage implements OnInit {
 
+  private readonly activatedRoute = inject(ActivatedRoute);
+
   equipos: Equipo[] = [];
   currentUserId: string = "";
+  userByParams: string = "";
 
   constructor(
     private readonly equiposService: EquiposService,
@@ -30,16 +30,26 @@ export class EquiposPage implements OnInit {
   }
 
   obtenerByClienteId() {
-    this.authService.getCurrentUser().subscribe(user => {
-      if (user) {
-        this.clienteService.getIdClienteByEmail(user.email!).subscribe(cliente => {
-          this.currentUserId = cliente.id!;
-          this.equiposService.obtenerEquipos(cliente.id!).subscribe(equipos => {
-            this.equipos = equipos;
-          });
-        });
-      }
+    this.activatedRoute.params.subscribe(params => {
+      this.userByParams = params['id'];
     });
+
+    if (this.userByParams == null) {
+      this.equiposService.obtenerEquipos(this.userByParams).subscribe(equipos => {
+        this.equipos = equipos;
+      });
+    } else {
+      this.authService.getCurrentUser().subscribe(user => {
+        if (user) {
+          this.clienteService.getIdClienteByEmail(user.email!).subscribe(cliente => {
+            this.currentUserId = cliente.id!;
+            this.equiposService.obtenerEquipos(cliente.id!).subscribe(equipos => {
+              this.equipos = equipos;
+            });
+          });
+        }
+      });
+    }
   }
 
   agregarEquipo() {

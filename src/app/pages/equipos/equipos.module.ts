@@ -14,7 +14,7 @@ import { EquiposPage } from './equipos.page';
     FormsModule,
     IonicModule,
     EquiposPageRoutingModule,
-    EquiposPage
-  ]
+  ],
+  declarations: [EquiposPage]
 })
 export class EquiposPageModule {}

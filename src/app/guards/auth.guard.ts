@@ -5,12 +5,13 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, take, switchMap } from 'rxjs/operators';
 import Cliente from '../models/Cliente';
+import { User } from '../models/User';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
 
   private readonly clientesCollection = this.firestore.collection('clientes');
-
+  private user: User | undefined;
   constructor(
     private readonly afAuth: AngularFireAuth,
     private readonly firestore: AngularFirestore,
@@ -28,6 +29,13 @@ export class AuthGuard implements CanActivate {
           this.router.navigate(['/login']);
           return of(false);
         }
+        this.user = {
+          ...user,
+          email: user.email ?? '',
+          displayName: user.displayName ?? '',
+          photoURL: user.photoURL ?? '',
+          phoneNumber: user.phoneNumber ?? ''
+        };
         return this.checkUserRole(user.email!);
       })
     );
@@ -41,12 +49,12 @@ export class AuthGuard implements CanActivate {
           const data = prueba.map(d => d.data() as Cliente);
           if (data[0]?.tipo === "A") {
             return true;
-          }else if(data[0]?.tipo === "C"){
-            this.router.navigate(['/equipos']);
+          } else if (data[0]?.tipo === "C") {
+            this.router.navigate(['/equipos', '']);
             return false;
           }
         }
-        
+
         return false;
       })
     );
