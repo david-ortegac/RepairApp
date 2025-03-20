@@ -35,10 +35,6 @@ export class EquiposPage implements OnInit {
     });
 
     if (this.userByParams == null) {
-      this.equiposService.obtenerEquipos(this.userByParams).subscribe(equipos => {
-        this.equipos = equipos;
-      });
-    } else {
       this.authService.getCurrentUser().subscribe(user => {
         if (user) {
           this.clienteService.getIdClienteByEmail(user.email!).subscribe(cliente => {
@@ -48,6 +44,10 @@ export class EquiposPage implements OnInit {
             });
           });
         }
+      });
+    } else {
+      this.equiposService.obtenerEquipos(this.userByParams).subscribe(equipos => {
+        this.equipos = equipos;
       });
     }
   }
