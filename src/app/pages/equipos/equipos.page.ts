@@ -1,5 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { OverlayEventDetail } from '@ionic/core';
 import { ActivatedRoute } from '@angular/router';
+import { IonModal } from '@ionic/angular';
 import Equipo from 'src/app/models/Equipo';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClienteService } from 'src/app/services/clientes.service';
@@ -13,6 +15,10 @@ import { EquiposService } from 'src/app/services/equipos.service';
 })
 export class EquiposPage implements OnInit {
 
+  @ViewChild(IonModal) modal!: IonModal;
+  name!: string;
+
+  
   private readonly activatedRoute = inject(ActivatedRoute);
 
   equipos: Equipo[] = [];
@@ -34,7 +40,7 @@ export class EquiposPage implements OnInit {
       this.userByParams = params['id'];
     });
 
-    if (this.userByParams == null) {
+    if (this.userByParams != undefined) {
       this.authService.getCurrentUser().subscribe(user => {
         if (user) {
           this.clienteService.getIdClienteByEmail(user.email!).subscribe(cliente => {
@@ -49,6 +55,21 @@ export class EquiposPage implements OnInit {
       this.equiposService.obtenerEquipos(this.userByParams).subscribe(equipos => {
         this.equipos = equipos;
       });
+    }
+  }
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  confirm() {
+    this.modal.dismiss(this.name, 'confirm');
+  }
+
+  onWillDismiss(event: CustomEvent<OverlayEventDetail>) {
+    console.log('ffffff');
+    if (event.detail.role === 'confirm') {
+      console.log('confirm');
     }
   }
 

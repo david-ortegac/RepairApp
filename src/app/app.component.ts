@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './services/auth.service';
+
 import { User } from './models/User';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
 
   public appPages = [
     { title: 'Clientes', url: '/clientes', icon: 'people' },
-    { title: 'Perfil', url: '/profile', icon: 'paper-plane' },
+    { title: 'Perfil', url: '/profile', icon: 'person-circle' },
     { title: 'Cerrar Sesion', url: '/logout', icon: 'close' }
   ];
 
@@ -28,8 +29,8 @@ export class AppComponent implements OnInit {
         } as User;
         this.appPages = [
           { title: 'Clientes', url: '/clientes', icon: 'people' },
-          { title: 'Perfil', url: '/profile', icon: 'paper-plane' },
-          { title: 'Cerrar Sesion', url: '/logout', icon: 'close' }
+          { title: 'Perfil', url: '/profile', icon: 'person-circle' },
+          { title: 'Cerrar Sesion', url: '/logout', icon: 'log-out' }
         ];
       } else {
         this.appPages = [

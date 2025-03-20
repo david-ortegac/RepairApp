@@ -7,17 +7,56 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
 
   <!-- Lista de equipos del cliente seleccionado -->
   <ion-list>
     <ion-item *ngFor="let equipo of equipos">
       <ion-label>{{ equipo.marca }} - {{ equipo.modelo }}</ion-label>
+
     </ion-item>
   </ion-list>
 
   <!-- Botón para agregar un equipo -->
-  <ion-button expand="full" (click)="agregarEquipo()">
-    Agregar Equipo
-  </ion-button>
+  <ion-button id="open-modal" expand="block">Crear Equipo</ion-button>
+
+  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancelar</ion-button>
+          </ion-buttons>
+          <ion-title>Welcome</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirm()" [strong]="true">Confirmar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-input label="Tipo de equipo" labelPlacement="stacked" type="text" placeholder="Tipo"
+            [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Digite la marca" labelPlacement="stacked" type="text" placeholder="Marca del PC"
+            [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Digite el model del PC" labelPlacement="stacked" type="text" placeholder="Modelo PC"
+            [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Memoria y tipo" labelPlacement="stacked" type="text" placeholder="Memoria y tipo"
+            [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Procesador y referencia" labelPlacement="stacked" type="text" placeholder="Procesador y referencia"
+            [(ngModel)]="name"></ion-input>
+        </ion-item>
+        
+        
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
